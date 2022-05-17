@@ -1,0 +1,10 @@
+body{
+background: aqua;
+}
+
+p.error{
+font-size:30px;
+color: purple;
+font-weight: bold;
+text-style-type:uppercase;
+}

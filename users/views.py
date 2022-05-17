@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.views import PasswordResetView
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
@@ -56,6 +57,7 @@ def profile(request):
 
 
 def loginuser(request):
+    error = ''
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -64,8 +66,8 @@ def loginuser(request):
             login(request, user)
             return redirect('profile')
         else:
-            error = 'login or password incorrect'
-    return render(request, 'users/login.html')
+            error = 'incorrect login or password '
+    return render(request, 'users/login.html', {'error': error})
 
 
 def logout(request):
@@ -94,3 +96,22 @@ def change_password(request):
             error = 'All fields are required'
 
     return render(request, 'users/change_password.html', {'error': error})
+
+
+def delete_user(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            user = User.objects.get(username=request.user.get_username())
+            user.delete()
+            return HttpResponseRedirect(reverse(registration))
+        return render(request, 'users/del.html')
+    else:
+        redirect('login')
+
+
+class PasswReset(PasswordResetView):
+    template_name = 'users/pass_reset.html'
+    email_template_name = 'users/email_template.html'
+    subject_template_name = 'users/pass_reset_subject.txt'
+    success_url = 'profile'
+    from_email = 'tim261203.mail@gmail.com'
