@@ -1,0 +1,16 @@
+{% extends 'polls/base.html' %}
+
+{% block title %}Log in{% endblock %}
+{% block content %}
+    <h1>{{ question.question_text }}</h1>
+    <form action="{% url 'vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        {% empty %}
+            <p>Sorry but there is no choices to answer yet. Come back later</p>
+        {% endfor %}
+        <button type="submit">Vote</button>
+    </form>
+{% endblock %}

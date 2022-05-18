@@ -8,6 +8,5 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('change_password', views.change_password, name='change_password'),
     path('delete_user', views.delete_user, name='delete_user'),
-    path('reset_password', views.PasswReset.as_view(), name='password_reset'),
 
 ]

@@ -1,5 +1,4 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.views import PasswordResetView
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
@@ -108,10 +107,3 @@ def delete_user(request):
     else:
         redirect('login')
 
-
-class PasswReset(PasswordResetView):
-    template_name = 'users/pass_reset.html'
-    email_template_name = 'users/email_template.html'
-    subject_template_name = 'users/pass_reset_subject.txt'
-    success_url = 'profile'
-    from_email = 'tim261203.mail@gmail.com'

@@ -1,0 +1,12 @@
+{% extends 'polls/base.html' %}
+
+{% block title %}Recent polls{% endblock %}
+{% block content %}
+    <h1>Recent polls</h1>
+    {% for q in questions %}
+        <h2>{{ q.question_text }}</h2>
+        <a href="{{ q.get_absolute_url }}">Detail information</a>
+    {% empty %}
+        <p>Sorry but there is no polls now</p>
+    {% endfor %}
+{% endblock %}
