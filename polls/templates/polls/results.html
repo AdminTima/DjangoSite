@@ -1,6 +1,6 @@
 {% extends 'polls/base.html' %}
 
-{% block title %}Log in{% endblock %}
+{% block title %}Results{% endblock %}
 {% block content %}
    <h1>Results for question: {{ question.question_text }}</h1>
    <ul>
@@ -8,5 +8,5 @@
          <li>{{ choice.choice_text }} --{{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
       {% endfor %}
    </ul>
-   <a href="{% url 'detail' question.id %}">Vote again</a>
+   <a href="{% url 'recent_polls' %}">Back to the recent polls page</a>
 {% endblock %}

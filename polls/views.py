@@ -7,20 +7,16 @@ from . import models
 
 
 def all_recent_polls(request):
-    questions = models.Question.objects.order_by('-published')
+    questions = models.Question.objects.raw('SELECT * FROM polls_question')
     return render(request, 'polls/recent.html', {'questions': questions})
 
 
 def check_users_who_vote(user, question_id):
     voted_user = models.Users_Who_Voted.objects.filter(user__username=user, cur_question=question_id)
     print(len(voted_user))
-    #print(user)
+    # print(user)
     if voted_user:
         return True
-
-
-# def add_voted_user(user, question_id):
-#     new_voted_user = models.Users_Who_Voted.objects.create(user=user, question=question_id)
 
 
 def detail(request, question_id):
@@ -42,7 +38,6 @@ def vote(request, question_id):
             selected_choice = question.choice_set.get(pk=request.POST['choice'])
             selected_choice.votes = F('votes') + 1
             new_voted_user = models.Users_Who_Voted.objects.create(user=request.user, cur_question=question)
-            print(request.user)
             selected_choice.save()
             return HttpResponseRedirect(reverse(results, kwargs={'question_id': question_id}))
         except KeyError:

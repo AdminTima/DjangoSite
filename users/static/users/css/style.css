@@ -8,3 +8,7 @@ color: purple;
 font-weight: bold;
 text-style-type:uppercase;
 }
+
+form input{
+margin-bottom: 20px;
+}

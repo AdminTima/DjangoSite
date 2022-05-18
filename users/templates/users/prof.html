@@ -13,8 +13,8 @@
         <button type="submit">Update</button>
     </form>
     <form action="{% url 'logout' %}">
-        <button type="submit">Log out</button>
+        <button class="danger" type="submit">Log out</button>
     </form>
-    <a href="{% url 'change_password' %}">Change Password</a>
-    <a href="{% url 'delete_user' %}">Delete account</a>
+    <a class="info" href="{% url 'change_password' %}">Change Password</a>
+    <a class="danger" href="{% url 'delete_user' %}">Delete account</a>
 {% endblock %}
